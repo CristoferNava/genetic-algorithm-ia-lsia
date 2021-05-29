@@ -13,7 +13,7 @@ AVG_FITNESS = 0;
 GENERATION = 0;
 BALLS = [];
 
-function test() {
+function begin() {
     let population = document.getElementById('population').value;
     population = parseInt(population);
     POPULATION = population;
@@ -23,12 +23,13 @@ function test() {
     NUM_GENES = numGenes;
 
     let mutationRate = document.getElementById('mutationRate').value;
-    mutationRate = parseInt(mutationRate);
+    mutationRate = parseFloat(mutationRate);
     MUTATION_RATE = mutationRate;
 
     let mobility = document.getElementById('mobility').value;
     mobility = parseInt(mobility);
     MOBILITY = mobility;
+    console.log(POPULATION, NUM_GENES, MUTATION_RATE, MOBILITY);
 
     setup()
 }
@@ -45,9 +46,9 @@ class Ball {
     }
 
     draw() {
-        this.ctx.fillStyle = 'rgb(173, 216, 230)';
+        this.ctx.fillStyle = 'rgb(0, 204, 0)';
         if (this.done) {
-            this.ctx.fillStyle = 'rgb(32, 171, 56)';
+            this.ctx.fillStyle = 'rgb(0, 102, 255)';
         }
         this.ctx.beginPath();
         // TODO Ayuda para poner otra cosa que no sea un círculo
@@ -108,12 +109,12 @@ function animateLoop() {
         ball.draw();
     }
 
-    ctx.fillStyle = 'rgb(100, 135, 200)';
+    ctx.fillStyle = 'rgb(255, 0, 0)';
     // TODO Ayuda para poner otra cosa que no sea un rectángulo
     ctx.fillRect(RECTANGLE_X, RECTANGLE_Y, RECTANGLE_WIDTH, RECTANGLE_HEIGHT);
     ctx.fillStyle = 'rgb(0, 0, 0)';
     ctx.font = '30px Arial';
-    ctx.fillText(`Generation: ${GENERATION.toString()}`, 15, 45);
+    ctx.fillText(`Generación: ${GENERATION.toString()}`, 15, 45);
     ctx.fillText(`Avg Fitness: ${AVG_FITNESS.toFixed(2).toString()}`, 15, 90);
 
     if (BALLS[0].index === NUM_GENES) nextGen();
