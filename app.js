@@ -1,11 +1,19 @@
-NUM_GENES = 250;
-VEL = 25;
-NUM_BALLS = 100;
-MUTATION_RATE = 0.02;
+RECTANGLE_X = 380; // The x-axis coordinate of the rectangle's starting point.
+RECTANGLE_Y = 745; // The y-axis coordinate of the rectangle's starting point.
+RECTANGLE_WIDTH = 40;
+RECTANGLE_HEIGHT = 40;
+BALL_START_X = 395; // 395
+BALL_START_Y = 25; // 25
+// 380
+// 745
 
-avg_fitness = 0;
-generation = 0;
-balls = [];
+NUM_GENES = 250; // More genes more movement per ball
+MOBILITY = 25;
+POPULATION = 100;
+MUTATION_RATE = 0.02;
+AVG_FITNESS = 0;
+GENERATION = 0;
+BALLS = [];
 
 document.addEventListener("DOMContentLoaded", setup)
 
@@ -26,17 +34,18 @@ class Ball {
             this.ctx.fillStyle = 'rgb(32, 171, 56)';
         }
         this.ctx.beginPath();
+        // TODO Ayuda para poner otra cosa que no sea un círculo
         this.ctx.arc(this.x, this.y, this.radius, 0, 2*Math.PI, false);
         this.ctx.fill();
     }
 
     update() {
-        if (this.x > 380 && this.x < 420 && this.y > 745 && this.y < 785) {
+        if (this.x > RECTANGLE_X && this.x < (RECTANGLE_X+RECTANGLE_HEIGHT) && this.y > RECTANGLE_Y && this.y < (RECTANGLE_Y+RECTANGLE_HEIGHT)) {
             this.done = true;
             this.index++;
         } else if (this.index < NUM_GENES) {
-            this.x += VEL*this.genes[this.index][0];
-            this.y += VEL*this.genes[this.index][1];
+            this.x += MOBILITY*this.genes[this.index][0];
+            this.y += MOBILITY*this.genes[this.index][1];
             this.index++;
         }
     }
@@ -53,7 +62,7 @@ class Ball {
     }
 
     calcFitness() {
-        let distance = Math.sqrt((this.x - 400)**2 + (this.y - 765)**2);
+        let distance = Math.sqrt((this.x - (RECTANGLE_X + (RECTANGLE_WIDTH/2)))**2 + (this.y - (RECTANGLE_Y+(RECTANGLE_HEIGHT/2)))**2);
         this.fitness = Math.max(0, 1 - distance/800);
     }
 }
@@ -62,26 +71,15 @@ function setup() {
     let canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
     
-    for (let i = 0; i < NUM_BALLS; i++) {
-        let ball = new Ball(395, 25, ctx);
+    for (let i = 0; i < POPULATION; i++) {
+        let ball = new Ball(BALL_START_X, BALL_START_Y, ctx);
         ball.setRandomGenes();
-        balls.push(ball);
+        BALLS.push(ball);
     }
     animateLoop();
 }
 
-function loop() {
-    if (generation === 2000) return;
-
-    for (let i = 0; i < NUM_GENES; i++) {
-        for (let j = 0; j < NUM_BALLS; j++) {
-            balls[j].update();
-        }
-    }
-    nextGen();
-    loop();
-}
-
+// Infinite loop, listen for the animations (refresh)
 function animateLoop() {
     let canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
@@ -89,50 +87,51 @@ function animateLoop() {
     requestAnimationFrame(animateLoop);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (let i = 0; i < NUM_BALLS; i++) {
-        let ball = balls[i];
+    for (let i = 0; i < POPULATION; i++) {
+        let ball = BALLS[i];
         ball.update();
         ball.draw();
     }
 
-    ctx.fillStyle = 'rgb(173, 216, 230)';
-    ctx.fillRect(380, 745, 40, 40);
+    ctx.fillStyle = 'rgb(100, 135, 200)';
+    // TODO Ayuda para poner otra cosa que no sea un rectángulo
+    ctx.fillRect(RECTANGLE_X, RECTANGLE_Y, RECTANGLE_WIDTH, RECTANGLE_HEIGHT);
     ctx.fillStyle = 'rgb(0, 0, 0)';
     ctx.font = '30px Arial';
-    ctx.fillText(`Generation: ${generation.toString()}`, 15, 45);
-    ctx.fillText(`Avg fitness: ${avg_fitness.toFixed(2).toString()}`, 15, 90);
+    ctx.fillText(`Generation: ${GENERATION.toString()}`, 15, 45);
+    ctx.fillText(`Avg Fitness: ${AVG_FITNESS.toFixed(2).toString()}`, 15, 90);
 
-    if (balls[0].index === NUM_GENES) nextGen();
+    if (BALLS[0].index === NUM_GENES) nextGen();
 }
 
 function nextGen() {
-    generation++;
+    GENERATION++;
 
     let canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
 
     // mating pool
     let candidates = [];
-    let total_fitness = 0;
-    for (let i = 0; i < NUM_BALLS; i++) {
-        let ball = balls[i];
+    let totalFitness = 0;
+    for (let i = 0; i < POPULATION; i++) {
+        let ball = BALLS[i];
         ball.calcFitness();
-        total_fitness += ball.fitness;
+        totalFitness += ball.fitness;
         for (let j = 0; j < (2**(ball.fitness * 10)); j++) {
             candidates.push(ball);
         }
     }
-    avg_fitness = total_fitness / NUM_BALLS;
+    AVG_FITNESS = totalFitness / POPULATION;
 
     // reproduce
     let newBalls = [];
-    for (let i = 0; i < NUM_BALLS; i++) {
+    for (let i = 0; i < POPULATION; i++) {
         // father
         let father = candidates[Math.floor(Math.random() * candidates.length)];
         // mother 
         let mother = candidates[Math.floor(Math.random() * candidates.length)];
         // child
-        let child = new Ball(395, 25, ctx);
+        let child = new Ball(BALL_START_X, BALL_START_Y, ctx);
         // child's genes
         let genes = [];
 
@@ -146,5 +145,5 @@ function nextGen() {
         newBalls.push(child)
 
     }
-    balls = newBalls; // replace previous generation with current
+    BALLS = newBalls; // replace previous GENERATION with current
 }
