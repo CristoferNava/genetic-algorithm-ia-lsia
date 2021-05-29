@@ -12,5 +12,31 @@
 </head>
 <body>
     <canvas id="canvas" width="800px" height="800px"></canvas>
+    
+    <label>Tamaño de la Población (por defecto 100)</label>
+    <br>
+    <input type="text" id="population" value="100">
+    <br>
+    
+    <label>Cantidad de genes por individuo (por defecto 250)</label>
+    <br>
+    <input type="text" id="numGenes" value="250">
+    <br>
+
+    <label>Tasa de mutación (por defecto 0.02)</label>
+    <br>
+    <input type="text" id="mutationRate" value="0.02">
+    <br>
+
+    <label>Grados de libertad por individuo (movimiento) (por defecto 25)</label>
+    <br>
+    <input type="text" id="mobility" value="25">
+    <br>
+
+    <button type="button" onclick="test()">Presioname</button>
+
+    <br>
+    <br>
+    <button onClick="window.location.reload();">Reiniciar simulación</button>
 </body>
 </html>

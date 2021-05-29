@@ -1,21 +1,37 @@
-RECTANGLE_X = 380; // The x-axis coordinate of the rectangle's starting point.
-RECTANGLE_Y = 745; // The y-axis coordinate of the rectangle's starting point.
+RECTANGLE_X = 380; // The x-axis coordinate of the rectangle's starting point. 380
+RECTANGLE_Y = 745; // The y-axis coordinate of the rectangle's starting point. 745
 RECTANGLE_WIDTH = 40;
 RECTANGLE_HEIGHT = 40;
-BALL_START_X = 395; // 395
-BALL_START_Y = 25; // 25
-// 380
-// 745
+BALL_START_X = 395; 
+BALL_START_Y = 25;
 
-NUM_GENES = 250; // More genes more movement per ball
-MOBILITY = 25;
 POPULATION = 100;
+NUM_GENES = 250; // More genes more movement per ball
 MUTATION_RATE = 0.02;
+MOBILITY = 25; // Grades of freedom of each ball
 AVG_FITNESS = 0;
 GENERATION = 0;
 BALLS = [];
 
-document.addEventListener("DOMContentLoaded", setup)
+function test() {
+    let population = document.getElementById('population').value;
+    population = parseInt(population);
+    POPULATION = population;
+
+    let numGenes = document.getElementById('numGenes').value;
+    numGenes = parseInt(numGenes);
+    NUM_GENES = numGenes;
+
+    let mutationRate = document.getElementById('mutationRate').value;
+    mutationRate = parseInt(mutationRate);
+    MUTATION_RATE = mutationRate;
+
+    let mobility = document.getElementById('mobility').value;
+    mobility = parseInt(mobility);
+    MOBILITY = mobility;
+
+    setup()
+}
 
 class Ball {
     constructor(x, y, ctx) {
@@ -70,7 +86,6 @@ class Ball {
 function setup() {
     let canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
-    
     for (let i = 0; i < POPULATION; i++) {
         let ball = new Ball(BALL_START_X, BALL_START_Y, ctx);
         ball.setRandomGenes();
