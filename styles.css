@@ -1,13 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;1,400&display=swap');
 html, body {
     margin: 0px;
-    padding: 0px;
-    background-color: #f1f7f7;
+    padding: 0px;   
+    background: #f1f7f7;
+}
+h1, h3, h3, h4, p, span, img, canvas, input, label, div, main {
+    margin: 0 auto;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
+.mainCont {
+    margin: 50px auto 0 auto;
+    width: 70%;
+    background: #f1f7f7;
+    display: grid;
+    grid-template: 3fr 200px / 40% 60%;
+    grid-template-areas: "a b" "c c" ;
+    grid-column-gap: 50px;
+    grid-row-gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+/*Canvas*/
+.canvasCont {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    grid-area: b;
+    box-sizing: border-box;
+}
 #canvas {
-    background-color: rgb(255, 255, 255);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%)
+    width: 100%;
+    background: #f1f7f7;
+    box-shadow: 0px 5px 25px #999999;
+    border-radius: 15px;
+}
+
+/* Caja de controles*/
+.inputMainCont {
+    width: 100%;
+    height: 500px;
+    padding: 20px 0;
+    background: #f1f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    justify-content: space-around;
+    grid-area: a;
+    border-radius: 30px;
+    box-shadow: 0px 5px 25px #999999;
+}
+.inputMainCont > button {
+    margin: 0 auto;
+    width: 250px;
+    padding: 13px 0;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+.inputMainCont > button:active, .inputMainCont > button:hover {
+    opacity: 0.7;
+}
+#btnBegin {
+    background: #67E079;
+}
+#btnStop {
+    background: #D6475F;
+}
+.inputCont {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.inputCont > label {
+    font-size: 15px;
+    color: #2b2b2b;
+    text-align: center;
+}
+.inputCont > input {
+    background: #f1f7f7;
+    width: 90%;
+    height: 30px;
+    text-align: center;
+    color: #2b2b2b;
+    font-size: 13px;
+    border: 2px solid #333333;
+    outline: none;
+    border-radius: 10px;
+}
+.inputCont > input::placeholder {
+    color: #2b2b2b;
+}
+
+/* Datos */
+.infoCont {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    grid-area: c;
+}
+.infoCont > p {
+    color: #777777;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/*Media Queries */
+@media ( max-width: 1200px ) { 
+    .mainCont {
+        width: 90%;
+        grid-column-gap: 20px;
+    } 
+}
+
+@media ( max-width: 700px ) { 
+    .mainCont {
+        width: 90%;
+        grid-column-gap: 0;
+        grid-template: 80px 3fr 400px / 100%;
+        grid-template-areas: "c" "b" "a";
+        grid-row-gap: 30px;
+        padding: 0px 0px 80px 0px;
+    } 
+    .canvasCont {
+        width: 90%;
+    }
+    .inputMainCont {
+        width: 70%;
+        height: 400px;
+        margin-top: 30px;
+    }
+}
+@media ( max-width: 500px ) {
+    .inputMainCont {
+        width: 90%;
+    }
+    .inputMainCont > button {
+        width: 90%;
+    }
 }

@@ -9,40 +9,44 @@
     <link rel="stylesheet" href="./styles.css">
 
     <title>LSIA. Genetic Algorithm</title>
+    <link rel="icon" href="adn.png" type="image/png" />
 </head>
 <body>
-    <canvas id="canvas" width="800px" height="800px"></canvas>
+    <main class="mainCont">
+        <div class="canvasCont">
+            <canvas id="canvas" width="800px" height="800px"></canvas>
+        </div>
     
-    <label>Tamaño de la Población (por defecto 100)</label>
-    <br>
-    <input type="text" id="population" value="100">
-    <br>
+        <div class="inputMainCont">
+            <div class="inputCont">
+                <label>Tamaño de la Población (por defecto 100)</label>
+                <input type="text" id="population" value="100">
+            </div>
+        
+            <div class="inputCont">
+                <label>Cantidad de genes por individuo (por defecto 250)</label>
+                <input type="text" id="numGenes" value="250">
+            </div>
     
-    <label>Cantidad de genes por individuo (por defecto 250)</label>
-    <br>
-    <input type="text" id="numGenes" value="250">
-    <br>
-
-    <label>Tasa de mutación (por defecto 0.02)</label>
-    <br>
-    <input type="text" id="mutationRate" value="0.02">
-    <br>
-
-    <label>Grados de libertad por individuo (movimiento) (por defecto 25)</label>
-    <br>
-    <input type="text" id="mobility" value="25">
-    <br>
-
-    <button type="button" onclick="begin()">Iniciar simulación</button>
-
-    <br>
-    <br>
-    <button onClick="window.location.reload();">Detener simulación</button>
-
-    <br>
-    <br>
-    <p>Cristofer Nava</p>
-    <p>Universidad de Guanajuato</p>
-    <p>LSIA. Inteligencia Artificial</p>
+            <div class="inputCont">
+                <label>Tasa de mutación (por defecto 0.02)</label>
+                <input type="text" id="mutationRate" value="0.02">
+            </div>
+    
+            <div class="inputCont">
+                <label>Grados de libertad por individuo (movimiento) (por defecto 25)</label>
+                <input type="text" id="mobility" value="25">
+            </div>
+    
+            <button id="btnBegin" type="button" onclick="begin()">Iniciar simulación</button>
+            <button id="btnStop" onClick="window.location.reload();">Detener simulación</button>
+        </div>
+    
+        <div class="infoCont">
+            <p>Cristofer Nava</p>
+            <p>Universidad de Guanajuato</p>
+            <p>LSIA. Inteligencia Artificial</p>
+        </div>
+    </main>
 </body>
 </html>

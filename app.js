@@ -46,9 +46,9 @@ class Ball {
     }
 
     draw() {
-        this.ctx.fillStyle = 'rgb(0, 204, 0)';
+        this.ctx.fillStyle = 'rgb(71, 175, 214)';
         if (this.done) {
-            this.ctx.fillStyle = 'rgb(0, 102, 255)';
+            this.ctx.fillStyle = 'rgb(142, 190, 237)';
         }
         this.ctx.beginPath();
         // TODO Ayuda para poner otra cosa que no sea un círculo
@@ -109,10 +109,10 @@ function animateLoop() {
         ball.draw();
     }
 
-    ctx.fillStyle = 'rgb(255, 0, 0)';
+    ctx.fillStyle = 'rgb(250, 173, 82)';
     // TODO Ayuda para poner otra cosa que no sea un rectángulo
     ctx.fillRect(RECTANGLE_X, RECTANGLE_Y, RECTANGLE_WIDTH, RECTANGLE_HEIGHT);
-    ctx.fillStyle = 'rgb(0, 0, 0)';
+    ctx.fillStyle = 'rgb(119, 119, 119)';
     ctx.font = '30px Arial';
     ctx.fillText(`Generación: ${GENERATION.toString()}`, 15, 45);
     ctx.fillText(`Avg Fitness: ${AVG_FITNESS.toFixed(2).toString()}`, 15, 90);
